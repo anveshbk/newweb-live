@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic meta tags for character encoding and responsive viewport -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anvesh Bhat</title>
+    
+    <!-- DNS prefetch and preconnect for Google Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    
+    <!-- Critical CSS inline -->
+    <style>
+        /* Critical CSS for above-the-fold content */
+        :root {
+            --primary-color: #0081AF;
+            --text-color: #FFFFFF;
+            --border-color: rgba(209, 209, 209, 0.4);
+            --border-light: rgba(209, 209, 209, 0.3);
+            --section-bg: rgba(209, 209, 209, 0.1);
+            --icon-border: rgba(209, 209, 209, 0.2);
+            --transition-time: 300ms;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 15px;
+            --spacing-lg: 25px;
+            --spacing-xl: 50px;
+        }
+        
+        body.dark-theme {
+            --primary-color: #000000;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            transition: background-color var(--transition-time) ease;
+        }
+        
+        .container {
+            position: relative;
+            max-width: 1280px;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 55px;
+        }
+        
+        .name-title {
+            font-family: 'Naughty Monster', sans-serif;
+            font-size: 40px;
+            line-height: 34px;
+        }
+        
+        .theme-toggle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2px;
+            gap: 2px;
+            width: 31px;
+            height: 31px;
+            border-radius: 100px;
+            cursor: pointer;
+            z-index: 10;
+            transform: translateX(10px);
+        }
+        
+        .theme-toggle img {
+            width: 31px;
+            height: 31px;
+        }
+        
+        .profile-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xl);
+            margin-top: 60px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1000px;
+        }
+        
+        .profile-pic {
+            width: 206px;
+            height: 206px;
+            position: relative;
+            flex: none;
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+    
+    <!-- Non-critical CSS loaded asynchronously -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin>
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap"></noscript>
+    
+    <!-- Preload custom font -->
+    <link rel="preload" href="path-to-your-naughty-monster-font.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <style>
+        /* Custom font with font-display for better performance */
+        @font-face {
+            font-family: 'Naughty Monster';
+            src: url('path-to-your-naughty-monster-font.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        /* Non-critical CSS */
+        .content-section {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+            max-width: 691px;
+            width: 100%;
+            position: relative;
+        }
+        
+        .section {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: var(--spacing-md);
+            gap: var(--spacing-md);
+            width: 752px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            flex: none;
+            align-self: stretch;
+        }
+        
+        .section-title {
+            font-style: italic;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: var(--border-light);
+            width: 100%;
+        }
+        
+        .about-content {
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 22px;
+        }
+        
+        .experience-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        
+        .experience-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 0;
+            gap: 7px;
+            width: 100%;
+            height: 46px;
+            align-self: stretch;
+        }
+        
+        .timeline-dot {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 24px;
+            height: 46px;
+            align-self: stretch;
+        }
+        
+        .dot-active {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            background: rgba(209, 209, 209, 0.2);
+            border-radius: 50%;
+        }
+        
+        .dot-active::after {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            left: 3px;
+            top: 3px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+        }
+        
+        .dot-inactive {
+            width: 18px;
+            height: 18px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(209, 209, 209, 0.2);
+            border-radius: 50%;
+            margin: 3px auto;
+        }
+        
+        .timeline-line {
+            width: 1px;
+            height: 22px;
+            border: none;
+            border-left: 1px dashed rgba(209, 209, 209, 0.5);
+        }
+        
+        .experience-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: calc(100% - 31px);
+            height: 34px;
+            flex-grow: 1;
+        }
+        
+        .job-title {
+            width: 100%;
+            height: 22px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 22px;
+            display: flex;
+            align-items: center;
+            text-transform: capitalize;
+            color: #FFFFFF;
+            align-self: stretch;
+        }
+        
+        .job-info {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-xs);
+            width: 100%;
+            height: 12px;
+            align-self: stretch;
+        }
+        
+        .company, .separator, .date {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            line-height: 12px;
+            color: #FFFFFF;
+        }
+        
+        .company {
+            font-style: italic;
+            font-weight: 400;
+        }
+        
+        .separator {
+            font-weight: 700;
+        }
+        
+        .date {
+            font-style: italic;
+            font-weight: 300;
+        }
+        
+        .connect-section {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            position: relative;
+            width: 100%;
+            height: 47.5px;
+        }
+        
+        .social-icon, .mail-icon {
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            gap: 10px;
+            background: rgba(209, 209, 209, 0.1);
+            border: 1px solid rgba(209, 209, 209, 0.2);
+            border-radius: 8px;
+            position: relative;
+            cursor: pointer;
+            transition: width var(--transition-time) ease;
+            overflow: hidden;
+            text-decoration: none;
+        }
+        
+        .social-icon {
+            width: 41px;
+            height: 41px;
+        }
+        
+        .mail-icon {
+            width: 45px;
+            height: 39.2px;
+        }
+        
+        .social-icon:hover,
+        .linkedin-icon:hover,
+        .mail-icon:hover {
+            width: auto;
+            padding-right: 9px;
+        }
+        
+        .icon {
+            width: 25px;
+            height: 25px;
+            flex: none;
+        }
+        
+        .mail-icon .icon {
+            width: 29px;
+            height: 23.2px;
+        }
+        
+        .social-text {
+            font-family: 'Barlow', 'Inter', sans-serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19px;
+            display: flex;
+            align-items: center;
+            color: #FFFFFF;
+            max-width: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            transition: max-width var(--transition-time) ease;
+            flex: none;
+        }
+        
+        .social-icon:hover .social-text {
+            max-width: 200px;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 1280px) {
+            .header-container {
+                max-width: 90%;
+            }
+            
+            .section {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header-container {
+                margin-top: 20px;
+            }
+            
+            .name-title {
+                font-size: 32px;
+            }
+            
+            .profile-section {
+                flex-direction: column;
+                align-items: center;
+                margin-top: 30px;
+                gap: 30px;
+            }
+            
+            .content-section {
+                max-width: 100%;
+            }
+            
+            .theme-toggle {
+                top: -40px;
+                right: 0;
+            }
+            
+            .section {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-container">
+            <h1 class="name-title">ANVESH BHAT</h1>
+            <div class="theme-toggle" id="themeToggle">
+                <img src="Light to dark.png" alt="Theme Toggle" width="31" height="31" id="themeIcon">
+            </div>
+        </div>
+        
+        <div class="profile-section">
+            <div class="profile-pic">
+                <img src="Profile pic.png" alt="Anvesh Bhat" width="206" height="206" loading="lazy">
+            </div>
+            
+            <div class="content-section">
+                <div class="section">
+                    <h2 class="section-title">About me</h2>
+                    <div class="divider"></div>
+                    <p class="about-content">
+                        👋 I'm Anvesh, APM at Onemoney. Building financial products<br>
+                        | Prev. Hood<br>
+                        Seen while playing cricket, cycling, reading and capturing moments
+                    </p>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">Work Experience</h2>
+                    <div class="divider"></div>
+                    <div class="experience-timeline">
+                        <div class="experience-item">
+                            <div class="timeline-dot">
+                                <div class="dot-active"></div>
+                                <div class="timeline-line"></div>
+                            </div>
+                            <div class="experience-details">
+                                <h3 class="job-title">Associate Product Manager</h3>
+                                <div class="job-info">
+                                    <span class="company">Onemoney</span>
+                                    <span class="separator">-</span>
+                                    <span class="date">04/2023 - Present</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-item">
+                            <div class="timeline-dot">
+                                <div class="dot-inactive"></div>
+                                <div class="timeline-line"></div>
+                            </div>
+                            <div class="experience-details">
+                                <h3 class="job-title">Growth Intern</h3>
+                                <div class="job-info">
+                                    <span class="company">Onehash</span>
+                                    <span class="separator">-</span>
+                                    <span class="date">11/2022 - 02/2023</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-item">
+                            <div class="timeline-dot">
+                                <div class="dot-inactive"></div>
+                            </div>
+                            <div class="experience-details">
+                                <h3 class="job-title">Product & Growth Intern</h3>
+                                <div class="job-info">
+                                    <span class="company">Hood</span>
+                                    <span class="separator">-</span>
+                                    <span class="date">06/2022 - 11/2022</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">Connect with me</h2>
+                    <div class="divider"></div>
+                    <div class="connect-section">
+                        <a href="https://twitter.com/anvesh_bhat" class="social-icon twitter-icon">
+                            <div class="icon">
+                                <img src="twittericon.png" alt="Twitter" width="25" height="25">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" style="display: none;">
+                                    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+                                </svg>
+                            </div>
+                            <span class="social-text">@anvesh_bhat</span>
+                        </a>
+                        
+                        <a href="mailto:me@anveshbhat.in" class="social-icon mail-icon">
+                            <div class="icon">
+                                <img src="mailicon.png" alt="Email" width="29" height="23.2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" style="display: none;">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                            <span class="social-text">me@anveshbhat.in</span>
+                        </a>
+                        
+                        <a href="https://linkedin.com/in/anveshbhat" class="social-icon linkedin-icon">
+                            <div class="icon">
+                                <img src="linkedinicon.png" alt="LinkedIn" width="25" height="25">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" style="display: none;">
+                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                    <rect x="2" y="9" width="4" height="12"/>
+                                    <circle cx="4" cy="4" r="2"/>
+                                </svg>
+                            </div>
+                            <span class="social-text">Anvesh Bhat</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme toggle functionality with defer for non-critical JS -->
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const body = document.body;
+            let isDarkTheme = false;
+
+            const lightThemeIcon = "dark to light.png";
+            const darkThemeIcon = "Light to dark.png";
+
+            themeToggle.addEventListener('click', () => {
+                isDarkTheme = !isDarkTheme;
+                body.classList.toggle('dark-theme', isDarkTheme);
+                themeIcon.src = isDarkTheme ? lightThemeIcon : darkThemeIcon;
+            }, { passive: true });
+        });
+    </script>
+</body>
+</html>
